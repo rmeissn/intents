@@ -1,0 +1,85 @@
+language: "de"
+intents:
+  MassPlayMediaAssist:
+    data:
+
+      # TARGET AN AREA
+      - sentences:
+          - "<play> <artist> {artist} im <area>[ ab] [mit {radio_mode}]"
+          - "<play> <album> {album} [(von|vom) <artist> {artist}] im <area>[ ab] [mit {radio_mode}]"
+          - "<play> <track> {track} [(von|vom) <artist> {artist}] im <area>[ ab] [mit {radio_mode}]"
+          - "<play> <playlist> {playlist} im <area>[ ab] [mit {radio_mode}]"
+          - "<play> <radio_station> {radio} im <area>[ ab]"
+        expansion_rules:
+          play: "(spiel|spiele)"
+          artist: "[den|die|der] (Künstler|Interpreten|Band|Gruppe)"
+          track: "[den|das] (Titel|Song|Lied)"
+          album: "[das|die] (Album|EP|Platte|Kompilation|Single)"
+          playlist: "[die] Playlist"
+          radio_station: "[den|das|die] (Radiosender|Radio|Sender)"
+
+      # TARGET A NAME
+      - sentences:
+          - "<play> <artist> {artist} auf [dem ]{name} [<player_devices>][ ab] [mit {radio_mode}]"
+          - "<play> <album> {album} [(von|vom) <artist> {artist}] auf [dem ]{name} [<player_devices>][ ab] [mit {radio_mode}]"
+          - "<play> <track> {track} [(von|vom) <artist> {artist}] auf [dem ]{name} [<player_devices>][ ab] [mit {radio_mode}]"
+          - "<play> <playlist> {playlist} auf [dem ]{name} [<player_devices>][ ab] [mit {radio_mode}]"
+          - "<play> <radio_station> {radio} auf [dem ]{name} [<player_devices>][ ab]"
+        expansion_rules:
+          play: "(spiel|spiele)"
+          artist: "[den|die] (Künstler|Interpreten|Band|Gruppe)"
+          track: "[den|das] (Titel|Song|Lied)"
+          album: "[das|die] (Album|EP|Platte|Kompilation|Single)"
+          playlist: "[die] Playlist"
+          radio_station: "[den|das|die] (Radiosender|Radio|Sender)"
+          player_devices: "(Lautsprecher|[media ]player|[bluetooth ]box)"
+        requires_context:
+          domain: "media_player"
+
+      # TARGET AN AREA AND A NAME
+      - sentences:
+          - "<play> <artist> {artist} im <area> auf [dem ]{name} [<player_devices>][ ab] [mit {radio_mode}]"
+          - "<play> <album> {album} [(von|vom) <artist> {artist}] im <area> auf [dem ]{name} [<player_devices>][ ab] [mit {radio_mode}]"
+          - "<play> <track> {track} [(von|vom) <artist> {artist}] im <area> auf [dem ]{name}[ ab] [<player_devices>][mit {radio_mode}]"
+          - "<play> <playlist> {playlist} im <area> auf [dem ]{name}[ ab] [<player_devices>][mit {radio_mode}]"
+          - "<play> <radio_station> {radio} im <area> auf [dem ]{name}[ ab] [<player_devices>]"
+        expansion_rules:
+          play: "(spiel|spiele)"
+          artist: "[den|die] (Künstler|Interpreten|Band|Gruppe)"
+          track: "[den|das] (Titel|Song|Lied)"
+          album: "[das|die] (Album|EP|Platte|Kompilation|Single)"
+          playlist: "[die] Playlist"
+          radio_station: "[den|das|die] (Radiosender|Radio|Sender)"
+          player_devices: "(Lautsprecher|[media ]player|[bluetooth ]box)"
+
+      # CONTEXT AWARNESS
+      - sentences:
+          - "<play> <artist> {artist}[ ab] [mit {radio_mode}]"
+          - "<play> <album> {album} [(von|vom) <artist> {artist}][ ab] [mit {radio_mode}]"
+          - "<play> <track> {track} [(von|vom) <artist> {artist}][ ab] [mit {radio_mode}]"
+          - "<play> <playlist> {playlist}[ ab] [mit {radio_mode}]"
+          - "<play> <radio_station> {radio}[ ab]"
+        expansion_rules:
+          play: "(spiel|spiele)"
+          artist: "[den|der»die] (Künstler|Interpreten|Band|Gruppe)"
+          track: "[den|das] (Titel|Song|Lied)"
+          album: "[das|die] (Album|EP|Platte|Kompilation|Single)"
+          playlist: "[die] Playlist"
+          radio_station: "[den|das|die] (Radiosender|Radio|Sender)"
+        requires_context:
+          area:
+            slot: true
+lists:
+  artist:
+    wildcard: true
+  album:
+    wildcard: true
+  track:
+    wildcard: true
+  playlist:
+    wildcard: true
+  radio:
+    wildcard: true
+  radio_mode:
+    values:
+      - "radio mode"
